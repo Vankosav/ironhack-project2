@@ -10,3 +10,14 @@ a {
 h1 {
   color: 15px;
 }
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.carousel img{
+  width: 30%;
+  height: 30%
+}
