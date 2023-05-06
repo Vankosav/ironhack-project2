@@ -30,6 +30,9 @@ app.use("/", indexRoutes);
 const userRoutes = require("./routes/user.routes");
 app.use("/user", userRoutes);
 
+const profileRoutes = require("./routes/profile.routes");
+app.use("/profile", profileRoutes);
+
 hbs.registerPartials('views/partials');
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
