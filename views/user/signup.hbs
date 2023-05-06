@@ -1,6 +1,6 @@
 <div id="form">
   <h2>Join us</h2>
-  <form action="/auth/signup" method="POST">
+  <form action="/user/signup" method="POST">
 
     <label> Username
       <input type="text" name="username" placeholder="Your username" />
@@ -22,7 +22,7 @@
 
     <p>If you are already a user</p>
 
-    <a href="/auth/login">Log In</a>
+    <a href="/user/login">Log In</a>
 
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>

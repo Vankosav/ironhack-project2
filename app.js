@@ -27,8 +27,8 @@ app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
 
-const authRoutes = require("./routes/auth.routes");
-app.use("/auth", authRoutes);
+const userRoutes = require("./routes/user.routes");
+app.use("/user", userRoutes);
 
 hbs.registerPartials('views/partials');
 
