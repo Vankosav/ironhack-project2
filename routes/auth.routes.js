@@ -23,11 +23,12 @@ router.get("/signup", isLoggedOut, (req, res) => {
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, (req, res) => {
-  const { username, email, password } = req.body;
+router.post("/signup", isLoggedOut, async (req, res) => {
+  const { username, email, password, confirmPassword } = req.body;
+
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (username === "" || email === "" || password === "" || confirmPassword === "") {
     res.status(400).render("auth/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
@@ -56,6 +57,20 @@ router.post("/signup", isLoggedOut, (req, res) => {
     return;
   }
   */
+
+  // Check if the user already exists in the database
+  try {
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      res.status(400).render("auth/signup", {
+        errorMessage: "The username & email already exist, please Login.",
+      });
+      return;
+    }
+  } catch (error) {
+    next(error);
+    return;
+  }
 
   // Create a new user - start by hashing the password
   bcrypt
