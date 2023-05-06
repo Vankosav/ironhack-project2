@@ -3,13 +3,73 @@
 <button onclick="scrollToSection()">Create recipe</button>
 
 <h3>Create recipe</h3>
-<form action="/profile/login" method="POST">
+<form action="/profile/new-recipe" method="POST">
 
-      <input type="email" name="email" placeholder="Your email" />
-    <br>
-    <br>
-      <input type="password" name="password" placeholder="Your password" />
-    <br>
-    <br>
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" required>
+  <br>
+  <br>
 
-    <button type="submit">Log In</button>
+  <label for="ingredients">Ingredients:</label>
+  <textarea id="ingredients" name="ingredients" required></textarea>
+<br>
+  <br>
+
+  <label for="instructions">Instructions:</label>
+  <ol id="instructions">
+    <li>
+      <input type="number" name="instructions[0][stepNumber]" required>
+      <textarea name="instructions[0][text]" required></textarea>
+    </li>
+    <li>
+      <input type="number" name="instructions[1][stepNumber]" required>
+      <textarea name="instructions[1][text]" required></textarea>
+    </li>
+    <!-- Add more steps as needed -->
+  </ol>
+<br>
+  <br>
+
+  <label for="dishType">Dish Type:</label>
+  <select id="dishType" name="dishType" required>
+    <option value="breakfast">Breakfast</option>
+    <option value="main_course">Main Course</option>
+    <option value="soup">Soup</option>
+    <option value="snack">Snack</option>
+    <option value="drink">Drink</option>
+    <option value="dessert">Dessert</option>
+    <option value="other">Other</option>
+  </select>
+
+<br>
+  <br>
+
+  <label for="diet">Diet:</label>
+  <select id="diet" name="diet" required>
+    <option value="vegan">Vegan</option>
+    <option value="vegetarian">Vegetarian</option>
+    <option value="plant-based">Plant-based</option>
+    <option value="gluten-free">Gluten-free</option>
+    <option value="omnivore">Omnivore</option>
+  </select>
+
+<br>
+  <br>
+
+  <label for="cuisine">Cuisine:</label>
+  <input type="text" id="cuisine" name="cuisine" required>
+
+<br>
+  <br>
+
+  <label for="duration">Duration (in minutes):</label>
+  <input type="number" id="duration" name="duration" required>
+
+<br>
+  <br>
+
+  <input type="submit" value="Create">
+</form>
+
+
+ 
