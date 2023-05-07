@@ -1,0 +1,32 @@
+<h2>Set up your profile, (name)</h2>
+
+<div id="form">
+
+    <form action="/profile/create-profile" method="POST">
+
+        <label> Username
+            <input type="text" name="username" placeholder="Your username" />
+        </label>
+
+        <label> Diet
+            <select name="diet">
+                <option value="">Select your diet</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="pescatarian">Pescatarian</option>
+                <option value="flexitarian">Flexitarian</option>
+                <option value="omnivore">Omnivore</option>
+            </select>
+        </label>
+
+        <label> Country
+            <input type="country" name="country" placeholder="Your country" />
+        </label>
+
+        <button type="submit">Create</button>
+
+        {{#if errorMessage}}
+        <p class="error">{{errorMessage}}</p>
+        {{/if}}
+    </form>
+</div>
