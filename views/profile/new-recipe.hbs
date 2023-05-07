@@ -1,9 +1,12 @@
 <h3>Your recipes</h3>
-
+<!-- if a recipe for each title and next to it button for edit and delete -->
+ {{#each recipes}}
+            <li>{{this.title}}</li>
+          {{/each}}
 <button onclick="scrollToSection()">Create recipe</button>
 
 <h3>Create recipe</h3>
-<form action="/profile/new-recipe" method="POST">
+<form action="/profile/your-recipes" method="POST">
 
   <label for="title">Title:</label>
   <input type="text" id="title" name="title" required>
@@ -15,18 +18,18 @@
 <br>
   <br>
 
-  <label for="instructions">Instructions:</label>
-  <ol id="instructions">
-    <li>
-      <input type="number" name="instructions[0][stepNumber]" required>
-      <textarea name="instructions[0][text]" required></textarea>
-    </li>
-    <li>
-      <input type="number" name="instructions[1][stepNumber]" required>
-      <textarea name="instructions[1][text]" required></textarea>
-    </li>
-    <!-- Add more steps as needed -->
-  </ol>
+    <fieldset id="instructions-fieldset">
+    <legend>Instructions:</legend>
+    <div id="instruction-container">
+      <div class="instruction">
+        <label>Step Number:</label>
+        <input type="number" name="stepNumber[]" required>
+        <label>Text:</label>
+        <textarea name="instructionText[]" required></textarea>
+      </div>
+    </div>
+    <button type="button" id="add-instruction-button">Add Step</button>
+  </fieldset>
 <br>
   <br>
 
@@ -67,9 +70,33 @@
 
 <br>
   <br>
+   <label for="level">Level:</label>
+  <select id="level" name="level" required>
+    <option value="Easy">Easy</option>
+    <option value="Medium">Medium</option>
+    <option value="Pro">Pro</option>
+  </select>
 
   <input type="submit" value="Create">
 </form>
 
+<!-- allow a user to have one step if needed with if/else -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const addInstructionButton = document.getElementById('add-instruction-button');
+    const instructionContainer = document.getElementById('instruction-container');
 
+    addInstructionButton.addEventListener('click', () => {
+      const newInstruction = document.createElement('div');
+      newInstruction.classList.add('instruction');
+      newInstruction.innerHTML = `
+        <label>Step Number:</label>
+        <input type="number" name="stepNumber[]" required>
+        <label>Text:</label>
+        <textarea name="instructionText[]" required></textarea>
+      `;
+      instructionContainer.appendChild(newInstruction);
+    });
+  });
+</script>
  
