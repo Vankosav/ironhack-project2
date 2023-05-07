@@ -155,15 +155,14 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           req.session.currentUser = user.toObject();
           // Remove the password field
           delete req.session.currentUser.password;
-
-          if (req.session.currentUser.profileCreated) {
+         
+           if (req.session.currentUser.profileCreated) {
             res.redirect("/");
           } else {
             res.redirect("/profile/create-profile");
           }
-
-          res.redirect("/");
         })
+
         .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
     })
     .catch((err) => next(err));
