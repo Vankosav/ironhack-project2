@@ -14,7 +14,6 @@ const recipeSchema = new Schema(
       required: true,
       unique: true,
       trim: true,
-      lowercase: true,
     },
     instructions: [
         {
@@ -34,7 +33,7 @@ const recipeSchema = new Schema(
     },
     diet: {
       type: String,
-      enum: ["vegan", "vegeterian", "plant-based", "gluten-free", "omnivore"],
+      enum: ["vegan", "vegetarian", "plant-based", "gluten-free", "omnivore"],
       required: true,
     },
     cuisine: {
@@ -44,6 +43,10 @@ const recipeSchema = new Schema(
     duration: {
         type: Number,
         required: true,
+    },
+    level: {
+      type: String, 
+      enum: ["Easy", "Medium", "Pro"]
     },
   },
  
