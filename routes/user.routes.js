@@ -24,11 +24,11 @@ router.get("/signup", isLoggedOut, (req, res) => {
 
 // POST /auth/signup
 router.post("/signup", isLoggedOut, async (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { username, email, password } = req.body;
 
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "" || confirmPassword === "") {
+  if (username === "" || email === "" || password === "") {
     res.status(400).render("user/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
@@ -102,10 +102,6 @@ router.get("/login", isLoggedOut, (req, res) => {
   res.render("user/login");
 });
 
-// GET /profile/create-profile
-router.get("/profile/create-profile", isLoggedIn, (req, res) => {
-  res.render("user/create-profile");
-});
 
 // POST /auth/login
 router.post("/login", isLoggedOut, (req, res, next) => {
@@ -159,7 +155,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
            if (req.session.currentUser.profileCreated) {
             res.redirect("/");
           } else {
-            res.redirect("/profile/create-profile");
+            res.redirect(`/profile/create-profile?name=${user.username}`);
           }
         })
 
