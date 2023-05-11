@@ -2,6 +2,9 @@
   <h2>Welcome back</h2>
   <form action="/user/login" method="POST">
 
+      <input type="name" name="name" placeholder="Your name" />
+    <br>
+    <br>
       <input type="email" name="email" placeholder="Your email" />
     <br>
     <br>
@@ -14,7 +17,7 @@
     <p>You don't have a profile yet?</p>
     <a href="/user/signup">Signup</a>
 
-    <a href="/profile/create-profile">Go to create profile page</a>
+    {{!-- <a href="/profile/create-profile">Go to create profile page</a> --}}
 
 
     {{#if errorMessage}}
