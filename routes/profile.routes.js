@@ -36,12 +36,32 @@ router.post("/your-recipes", async (req, res) => {
 
 router.get('/your-recipes', async (req, res) => {
     try {
-      const recipes = await Recipe.find(); // retrieve all documents from the 'recipes' collection
-      res.render('profile/new-recipe.hbs', { recipes }); // pass the recipe data to the 'home' template
+      const recipes = await Recipe.find(); 
+      res.render('profile/new-recipe.hbs', { recipes }); 
     } catch (err) {
       console.log(err);
       res.status(500).send('Internal Server Error');
     } 
   });
+
+  router.get("/your-recipes/details/:id", async (req, res) => {
+    try { const recipe = req.params.id;
+     await Recipe.findById(recipe)
+         res.render("profile/recipe-details.hbs", { recipe });
+       } catch (err) {
+         console.log(err);
+         res.status(500).send('Internal Server Error');
+       }
+       });
+
+router.get("/your-recipes/delete/:id", async (req, res) => {
+   try { const recipe = req.params.id;
+    await Recipe.findByIdAndDelete(recipe)
+        res.render("profile/recipe-deleted.hbs", { recipe });
+      } catch (err) {
+        console.log(err);
+        res.status(500).send('Internal Server Error');
+      }
+      });
 
 module.exports = router;

@@ -1,8 +1,14 @@
 <h3>Your recipes</h3>
 <!-- if a recipe for each title and next to it button for edit and delete -->
  {{#each recipes}}
-            <li>{{this.title}}</li>
+            <li>{{this.title}}
+            <a href="/profile/your-recipes/details/{{this.id}}">Details</a>
+            <a href="/profile/edit-recipe">Edit</a>
+            <a href="/profile/your-recipes/delete/{{this.id}}">Delete</a>
+            </li>
           {{/each}}
+    <br>
+    <br>       
 <button onclick="scrollToSection()">Create recipe</button>
 
 <h3>Create recipe</h3>
@@ -15,7 +21,7 @@
 
   <label for="ingredients">Ingredients:</label>
   <textarea id="ingredients" name="ingredients" required></textarea>
-<br>
+  <br>
   <br>
 
     <fieldset id="instructions-fieldset">
@@ -30,7 +36,7 @@
     </div>
     <button type="button" id="add-instruction-button">Add Step</button>
   </fieldset>
-<br>
+  <br>
   <br>
 
   <label for="dishType">Dish Type:</label>
