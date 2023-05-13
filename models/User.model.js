@@ -20,6 +20,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+     profile: {
+      type: Schema.Types.ObjectId,
+      ref: "Profile",
+    },
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
