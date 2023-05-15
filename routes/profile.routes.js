@@ -52,15 +52,17 @@ router.get('/your-recipes', async (req, res) => {
     } 
   });
 
-  router.get("/your-recipes/details/:id", async (req, res) => {
-    try { const recipe = req.params.id;
-     await Recipe.findById(recipe)
-         res.render("profile/recipe-details.hbs", { recipe });
-       } catch (err) {
-         console.log(err);
-         res.status(500).send('Internal Server Error');
-       }
-       });
+       router.get("/your-recipes/details/:id", async (req, res) => {
+        try {
+          const recipeId = req.params.id;
+          const recipe = await Recipe.findById(recipeId);
+          res.render("profile/recipe-details.hbs", { recipe });
+        } catch (err) {
+          console.log(err);
+          res.status(500).send('Internal Server Error');
+        }
+      });
+      
 
 router.get("/your-recipes/delete/:id", async (req, res) => {
    try { const recipe = req.params.id;
