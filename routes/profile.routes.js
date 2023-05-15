@@ -1,6 +1,11 @@
 const router = require("express").Router();
 
 const User = require("../models/User.model");
+const Profile = require("../models/Profile.model");
+
+
+// we need to require our getRecipeByIngredients function here
+const getRecipeByIngredients = require("../API/index")
 
 const Recipe = require("../models/Recipe.model");
 
@@ -11,7 +16,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET /profile/create-profile
 router.get("/create-profile", isLoggedIn, async (req, res) => {
-  
+
    try {
     const user = await User.findById(req.session.currentUser._id);
     console.log(user)
@@ -26,8 +31,6 @@ router.get("/create-profile", isLoggedIn, async (req, res) => {
 router.get("user/login", isLoggedIn, (req, res) => {
   res.render("profile/create-profile");
 });
-
-
 
 router.post("/your-recipes", async (req, res) => {
    
@@ -73,5 +76,53 @@ router.get("/your-recipes/delete/:id", async (req, res) => {
         res.status(500).send('Internal Server Error');
       }
       });
+
+// GET /profile/kitchen
+router.get("/kitchen", isLoggedIn, (req, res) => {
+  res.render("profile/kitchen.hbs");
+});
+
+// POST /profile/create-profile
+router.post("/create-profile", async (req, res) => {
+  try {
+    const { username, diet, country } = req.body;
+
+    // Create a new profile with the fixed username
+    const profile = new Profile({
+      user: req.session.currentUser._id,
+      username,
+      diet,
+      country,
+    });
+
+    await profile.save();
+ console.log("Redirecting to kitchen");
+
+    res.redirect("/profile/kitchen"); // Redirect to kitchen-state.hbs
+  } catch (error) {
+    next(error);
+  }
+});
+
+// POST ROUTE FOR THE GETRECIPEBYINGREDIENTS function
+router.post("/kitchen", async (req, res) => {
+  try {
+    const ingredientsArray = req.body.ingredient; 
+    console.log('INGREDIENTS: ', ingredientsArray );
+    const recipes = await getRecipeByIngredients(ingredientsArray); 
+    console.log(recipes);
+     res.render("profile/recipes.hbs", { recipes });
+  } catch (error) {
+    console.error(error);
+    res.send("Error");
+  }
+});
+// we get the array of ingredients from the body of our form
+
+
+// GET /profile/recipes
+router.get("/recipes", isLoggedIn, (req, res) => {
+  res.render("profile/recipes.hbs");
+});
 
 module.exports = router;
