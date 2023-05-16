@@ -19,7 +19,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET /auth/signup
 router.get("/signup", isLoggedOut, (req, res) => {
-  res.render("user/signup");
+  res.render("user/signup", {isLoggedIn: req.isLoggedIn});
 });
 
 // POST /auth/signup
@@ -31,7 +31,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
   if (username === "" || email === "" || password === "") {
     res.status(400).render("user/signup", {
       errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
+        "All fields are mandatory. Please provide your username, email and password.", isLoggedOut: req.isLoggedOut
     });
 
     return;
@@ -39,7 +39,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
 
   if (password.length < 6) {
     res.status(400).render("user/signup", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
+      errorMessage: "Your password needs to be at least 6 characters long.", isLoggedIn: req.isLoggedIn
     });
 
     return;
@@ -63,7 +63,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
     const existingUser = await User.findOne({ $or: [{ username }, { email }] });
     if (existingUser) {
       res.status(400).render("user/signup", {
-        errorMessage: "The username & email already exist, please Login.",
+        errorMessage: "The username & email already exist, please Login.", isLoggedIn: req.isLoggedIn
       });
       return;
     }
@@ -85,7 +85,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
     })
     .catch((error) => {
       if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("user/signup", { errorMessage: error.message });
+        res.status(500).render("user/signup", { errorMessage: error.message, isLoggedIn: req.isLoggedIn});
       } else if (error.code === 11000) {
         res.status(500).render("user/signup", {
           errorMessage:
@@ -99,7 +99,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
 
 // GET /auth/login
 router.get("/login", isLoggedOut, (req, res) => {
-  res.render("user/login");
+  res.render("user/login", {isLoggedIn: req.isLoggedIn});
 });
 
 
@@ -111,7 +111,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   if (email === "" || password === "") {
     res.status(400).render("user/login", {
       errorMessage:
-        "All fields are mandatory. Please provide username, email and password.",
+        "All fields are mandatory. Please provide username, email and password.", isLoggedIn: req.isLoggedIn
     });
 
     return;
@@ -132,7 +132,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       if (!user) {
         res
           .status(400)
-          .render("user/login", { errorMessage: "Wrong credentials." });
+          .render("user/login", { errorMessage: "Wrong credentials.", isLoggedIn: req.isLoggedIn });
         return;
       }
 
