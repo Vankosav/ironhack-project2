@@ -9,7 +9,11 @@
   </head>
 
   <body>
-   {{>navbar}}
+     {{#if isLoggedIn}}
+    {{>navbarin}}
+  {{else}}
+    {{>navbar}}
+  {{/if}}
 
         {{{ body }}}
 
