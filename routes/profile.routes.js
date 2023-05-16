@@ -5,7 +5,7 @@ const Profile = require("../models/Profile.model");
 
 
 // we need to require our getRecipeByIngredients function here
-const getRecipeByIngredients = require("../API/index")
+const {getRecipeByIngredients, getRecipeInformation} = require("../API/index")
 
 const Recipe = require("../models/Recipe.model");
 
@@ -90,8 +90,8 @@ router.get("/your-recipes/delete/:id", isLoggedIn, async (req, res) => {
       });
 
 // GET /profile/kitchen
-router.get("/kitchen", isLoggedIn, (req, res) => {
-  res.render("profile/kitchen.hbs", {isLoggedIn: req.isLoggedIn});
+router.get("/kitchen-overview", isLoggedIn, (req, res) => {
+  res.render("profile/kitchen-overview.hbs");
 });
 
 // POST /profile/create-profile
@@ -110,20 +110,20 @@ router.post("/create-profile", isLoggedIn, async (req, res) => {
     await profile.save();
  console.log("Redirecting to kitchen");
 
-    res.redirect("/profile/kitchen", {isLoggedIn: req.isLoggedIn}); // Redirect to kitchen-state.hbs
+    res.redirect("/profile/kitchen-overview"); // Redirect to kitchen-state.hbs
   } catch (error) {
     next(error);
   }
 });
 
 // POST ROUTE FOR THE GETRECIPEBYINGREDIENTS function
-router.post("/kitchen", isLoggedIn, async (req, res) => {
+router.post("/kitchen-overview", async (req, res) => {
   try {
     const ingredientsArray = req.body.ingredient; 
     console.log('INGREDIENTS: ', ingredientsArray );
     const recipes = await getRecipeByIngredients(ingredientsArray); 
     console.log(recipes);
-     res.render("profile/recipes.hbs", { recipes, isLoggedIn: req.isLoggedIn });
+     res.render("profile/kitchen-details.hbs", { recipes });
   } catch (error) {
     console.error(error);
     res.send("Error");
@@ -133,9 +133,20 @@ router.post("/kitchen", isLoggedIn, async (req, res) => {
 
 
 // GET /profile/recipes
-router.get("/recipes", isLoggedIn, (req, res) => {
-  console.log(req.isLoggedIn)
-  res.render("profile/recipes.hbs", {isLoggedIn: req.isLoggedIn});
+router.get("/kitchen-details", isLoggedIn, (req, res) => {
+  res.render("profile/kitchen-details.hbs");
+});
+
+// GET /profile/recipe-list-details
+router.get("/kitchen-recipes", isLoggedIn, async (req, res) => {
+  const recipeId = req.query.recipeId;
+  try {
+    const recipeInformation = await getRecipeInformation(recipeId);
+    res.render("profile/kitchen-recipes.hbs", { recipeInformation });
+  } catch (error) {
+    console.error(error);
+    res.send("Error");
+  }
 });
 
 module.exports = router;
