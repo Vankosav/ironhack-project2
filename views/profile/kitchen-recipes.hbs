@@ -1,0 +1,16 @@
+<h1>Recipe Information</h1>
+
+{{#if recipeInformation}}
+<h2>{{recipeInformation.title}}</h2>
+<img src="{{recipeInformation.image}}" alt="{{recipeInformation.title}}">
+<p>{{recipeInformation.summary}}</p>
+<h3>Instructions:</h3>
+<ol>
+    {{#each recipeInformation.analyzedInstructions.[0].steps}}
+    <li>{{this.step}}</li>
+    {{/each}}
+</ol>
+<!-- Display other recipe details as needed -->
+{{else}}
+<p>No recipe information available</p>
+{{/if}}
