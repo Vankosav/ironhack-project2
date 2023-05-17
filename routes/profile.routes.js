@@ -16,17 +16,24 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET /profile/create-profile
 router.get("/create-profile", isLoggedIn, async (req, res) => {
-
-   try {
-    const user = await User.findById(req.session.currentUser._id);
-    console.log(user)
-    const username = user.username;
-    console.log(username)
-    res.render("profile/create-profile", { username, isLoggedIn: req.isLoggedIn });
-  } catch (error) {
-    next(error);
-  }
+  try {
+    if (req.session.currentUser && req.session.currentUser._id) {
+      const user = await User.findById(req.session.currentUser._id);
+      console.log(user);
+      const username = user.username;
+      console.log(username);
+      res.render("profile/create-profile", { username, isLoggedIn: req.isLoggedIn });
+    } else {
+      // Handle the case where the user is not authenticated or the session is not set
+      // For example, you can redirect the user to a login page or display an error message
+      res.redirect("/login"); // Example: redirect to login page
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Internal Server Error');
+  } 
 });
+
 
 router.get("user/login", isLoggedIn, (req, res) => {
   res.render("profile/create-profile", {isLoggedIn: req.isLoggedIn});
@@ -35,7 +42,10 @@ router.get("user/login", isLoggedIn, (req, res) => {
 router.post("/your-recipes", isLoggedIn, async (req, res) => {
    
     try {
-         const newRecipe = await Recipe.create(req.body);
+      /*const author = new User({
+        author: req.session.currentUser._id, //newly added
+      });*/
+         const newRecipe = await Recipe.create(req.body, req.session.currentUser._id); // Send also the user ID author: req.session.currentUser._id
          console.log("Recipe created:", newRecipe);
          res.redirect("/profile/your-recipes", {isLoggedIn: req.isLoggedIn});
        }
@@ -47,7 +57,10 @@ router.post("/your-recipes", isLoggedIn, async (req, res) => {
 
 router.get('/your-recipes', isLoggedIn, async (req, res) => {
     try {
-      const recipes = await Recipe.find(); 
+      const profile = new User({
+        user: req.session.currentUser._id //newly added
+      });
+      const recipes = await Recipe.find(req.session.currentUser._id); 
       res.render('profile/new-recipe.hbs', { recipes, isLoggedIn: req.isLoggedIn }); 
     } catch (err) {
       console.log(err);
@@ -91,7 +104,7 @@ router.get("/your-recipes/delete/:id", isLoggedIn, async (req, res) => {
 
 // GET /profile/kitchen
 router.get("/kitchen-overview", isLoggedIn, (req, res) => {
-  res.render("profile/kitchen-overview.hbs");
+  res.render("profile/kitchen-overview.hbs", { isLoggedIn: req.isLoggedIn });
 });
 
 // POST /profile/create-profile
@@ -110,7 +123,7 @@ router.post("/create-profile", isLoggedIn, async (req, res) => {
     await profile.save();
  console.log("Redirecting to kitchen");
 
-    res.redirect("/profile/kitchen-overview"); // Redirect to kitchen-state.hbs
+    res.redirect("/profile/kitchen-overview", { isLoggedIn: req.isLoggedIn }); // Redirect to kitchen-state.hbs
   } catch (error) {
     next(error);
   }
@@ -123,7 +136,7 @@ router.post("/kitchen-overview", async (req, res) => {
     console.log('INGREDIENTS: ', ingredientsArray );
     const recipes = await getRecipeByIngredients(ingredientsArray); 
     console.log(recipes);
-     res.render("profile/kitchen-details.hbs", { recipes });
+     res.render("profile/kitchen-details.hbs", { recipes, isLoggedIn: req.isLoggedIn });
   } catch (error) {
     console.error(error);
     res.send("Error");
@@ -134,7 +147,7 @@ router.post("/kitchen-overview", async (req, res) => {
 
 // GET /profile/recipes
 router.get("/kitchen-details", isLoggedIn, (req, res) => {
-  res.render("profile/kitchen-details.hbs");
+  res.render("profile/kitchen-details.hbs", { isLoggedIn: req.isLoggedIn });
 });
 
 // GET /profile/recipe-list-details
@@ -142,11 +155,21 @@ router.get("/kitchen-recipes", isLoggedIn, async (req, res) => {
   const recipeId = req.query.recipeId;
   try {
     const recipeInformation = await getRecipeInformation(recipeId);
-    res.render("profile/kitchen-recipes.hbs", { recipeInformation });
+    res.render("profile/kitchen-recipes.hbs", { recipeInformation, isLoggedIn: req.isLoggedIn });
   } catch (error) {
     console.error(error);
     res.send("Error");
   }
 });
 
+router.get("/logout", isLoggedIn, (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      res.status(500).render("user/logout", { errorMessage: err.message, isLoggedIn: req.isLoggedIn });
+      return;
+    }
+
+    res.redirect("/");
+  });
+});
 module.exports = router;

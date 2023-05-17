@@ -3,6 +3,10 @@ const { Schema, model } = require("mongoose");
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const recipeSchema = new Schema(
   {
+    author: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
       title: {
       type: String,
       required: true,
@@ -46,6 +50,7 @@ const recipeSchema = new Schema(
       type: String, 
       enum: ["Easy", "Medium", "Pro"]
     },
+    // ADD USER ID of the author
   },
  
 );

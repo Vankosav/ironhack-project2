@@ -11,7 +11,7 @@ h1 {
   color: 15px;
 }
 
-nav {
+.navbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -21,3 +21,25 @@ nav {
   width: 30%;
   height: 30%
 }
+
+.navbarli {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.navbarli a {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+/* Style the dropdown menu */
+.navbarli ul ul {
+  display: none;
+}
+
+.navbarli:hover ul {
+  display: block;
+}
+

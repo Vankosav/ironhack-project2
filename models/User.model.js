@@ -24,6 +24,11 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Profile",
     },
+    // ADD A RECIPE ARRAY like the profile but it's an array
+    recipes: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Recipe',
+    }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`

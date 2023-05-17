@@ -1,13 +1,16 @@
 <nav>
-    <h2>LOGO</h2>
-    <a href="/about">About</a>
-    <a href="/community-recipes">Community recipes</a>
-    <label>Profile
-    <select name="profile">
-                <option value="vegetarian">Edit your profile</option>
-                <option value="vegan">Your recipes</option>
-                <option value="pescatarian">Find recipes</option>
-            </select>
-    </label>
-    <a href="/profile">Logout</a>
+ <nav class="navbarli">
+<h2>LOGO</h2>
+	<ul>
+		<a href="/about">About</a>
+		
+			<a href="#">Profile</a>
+			<ul>
+				<li><a href="/profile/create-profile">Edit your profile</a></li>
+				<li><a href="/profile/your-recipes">Your recipes</a></li>
+				<li><a href="/profile/kitchen-overview">Find a recipe</a></li>
+			</ul>
+	
+		<a href="/profile/logout">Logout</a>
+	</ul>
 </nav>
