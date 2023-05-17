@@ -10,3 +10,12 @@
     {{/each}}
 </ul>
 
+<button id="back-to-kitchen">Back to your kitchen</button>
+
+<script>
+    const backKitchenButton = document.getElementById("back-to-kitchen");
+    backKitchenButton.addEventListener("click", () => {
+        window.location.href = "/profile/kitchen-overview";
+    });
+</script>
+

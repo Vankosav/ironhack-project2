@@ -1,20 +1,54 @@
 <h2>What do you have in your kitchen now?</h2>
 
 <div id="kitchen-form">
-
     <form id="recipe-form" action="/profile/kitchen-overview" method="POST">
+        <div id="ingredients-container">
+            <div class="ingredient-row">
+                <input type="text" name="ingredient" placeholder="1st ingredient" />
+                <button class="remove-btn" type="button">Remove</button>
+            </div>
+        </div>
 
-        <input type="ingredient" name="ingredient" placeholder="1st ingredient" />
+        <button id="add-ingredient-btn" type="button">Add ingredient</button>
         <br>
         <br>
-        <input type="ingredient" name="ingredient" placeholder="2nd ingredient" />
-        <br>
-        <br>
-        <input type="ingredient" name="ingredient" placeholder="3rd ingredient" />
-        <br>
-        <br>
-
         <button id="find-recipe-btn" type="submit">Find recipe</button>
     </form>
 </div>
 
+<script>
+    const addButton = document.getElementById("add-ingredient-btn");
+    const ingredientsContainer = document.getElementById("ingredients-container");
+
+    addButton.addEventListener("click", () => {
+        const newIngredientInput = document.createElement("input");
+        newIngredientInput.type = "text";
+        newIngredientInput.name = "ingredient";
+        newIngredientInput.placeholder = `${ingredientsContainer.children.length + 1}th ingredient`;
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove-btn";
+        removeButton.type = "button";
+        removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", () => {
+            newIngredientInput.parentNode.remove();
+        });
+
+        const ingredientRow = document.createElement("div");
+        ingredientRow.className = "ingredient-row";
+        ingredientRow.appendChild(newIngredientInput);
+        ingredientRow.appendChild(removeButton);
+
+        ingredientsContainer.appendChild(ingredientRow);
+    });
+</script>
+
+<style>
+    .ingredient-row {
+        display: flex;
+    }
+
+    .remove-btn {
+        margin-left: 10px;
+    }
+</style>

@@ -14,3 +14,12 @@
 {{else}}
 <p>No recipe information available</p>
 {{/if}}
+
+<button id="back-to-list">Back to recipe list</button>
+
+<script>
+    const backListButton = document.getElementById("back-to-list");
+    backListButton.addEventListener("click", () => {
+        window.location.href = "/profile/kitchen-details";
+    });
+</script>
