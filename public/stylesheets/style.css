@@ -1,6 +1,10 @@
+@font-face {
+  font-family: 'AtomicMarker';
+  src: url('/fonts/AtomicMarker.otf') format('opentype');
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px "Nunito", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -8,16 +12,42 @@ a {
 }
 
 h1 {
-  color: 15px;
+  padding-left: 40px;
+  font-family: 'AtomicMarker';
+  font-size: 80px;
+
 }
 
-nav {
+h2 {
+  font-family: 'AtomicMarker';
+}
+
+/*nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}*/
+
+nav{
+  background-color: #EDEAE2;
+}
+
+.facts {
+  background-color: #9F808E;
 }
 
 .carousel img{
   width: 30%;
   height: 30%
+}
+
+footer {
+  background-color: white;
+}
+
+.form {
+  background-color: #EDEAE2;
+  padding-left: 300px;
+  padding-right: 300px;
+  padding-bottom: 50px;
 }

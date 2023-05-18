@@ -1,13 +1,73 @@
 
+<div id="indicators-carousel" class="relative w-full" data-carousel="static">
+    <!-- Carousel wrapper -->
+    <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+         <!-- Item 1 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
+            <img src="/images/slider1.png" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+        </div>
+        <!-- Item 2 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+            <img src="/docs/images/carousel/carousel-2.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
+        </div>
+    
+    </div>
+    <!-- Slider indicators -->
+    <div class="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-5 left-1/2">
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
+        <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
+    </div>
+    <!-- Slider controls -->
+    <button type="button" class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            <span class="sr-only">Previous</span>
+        </span>
+    </button>
+    <button type="button" class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full sm:w-10 sm:h-10 bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
+            <svg aria-hidden="true" class="w-5 h-5 text-white sm:w-6 sm:h-6 dark:text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            <span class="sr-only">Next</span>
+        </span>
+    </button>
+</div>
 
-<h1>{{appTitle}} 🚀</h1>
 
-    <div class="carousel">
+
+  <!--  <div class="carousel">
       <img src="/images/fridge.webp"  alt="fridge food">
       <img src="/images/pantry.jpg"  alt="pantry food">
-    </div>
+    </div> -->
+<h2 class="text-4xl dark:text-black">Features</h2>
+<div class="grid grid-cols-3 gap-4">
+  <div class="p-4">
+    <img src="/images/feature1.png" alt="Bild 1" class="w-full mb-4">
+    <h2 class="text-xl font-bold mb-2">Use all of your ingredients</h2>
+    <p>How many times have you wandered around the kitchen opening the 
+            fridge and pantry and thinking about what you could prepare based on 
+            the ingredients you have? The solution is here. Fill your (virtual) 
+            basket and enjoy your meals with just one click, while reducing food waste.</p>
+  </div>
+  <div class="p-4">
+    <img src="/images/feature2.png" alt="Bild 2" class="w-full mb-4">
+    <h2 class="text-xl font-bold mb-2">Find a recipe and cook</h2>
+    <p>Based on the ingredients you have in your kitchen, find a recipe that suits your needs: 
+            your diet, the time you have and the cuisine you love. Whether you're a vegan or a meat eater, 
+            whether you have two ingredients or twenty, whether you have 15 or an hour and 15 minutes, 
+            you don't have to worry because there are plenty of recipes just for you.</p>
+  </div>
+  <div class="p-4">
+    <img src="/images/feature3.png" alt="Bild 3" class="w-full mb-4">
+    <h2 class="text-xl font-bold mb-2">Create your recipe and share</h2>
+    <p>Our users have the opportunity to upload the recipes that they have come up with and thereby 
+            help the community. Make Indonesian-style bolognese, Serbian-style hamburger, and German-style burrito</p>
+  </div>
+</div>
 
-    <section>
+    <!-- <section class="">
         <p>FEATURES</p>
         <div>
             <img src="..." alt="...">
@@ -30,9 +90,42 @@
            <h4>Create your recipe and share</h4>
            <p>Our users have the opportunity to upload the recipes that they have come up with and thereby 
             help the community. Make Indonesian-style bolognese, Serbian-style hamburger, and German-style burrito  </p>
-        </div>
-<br>
-        <h2>FACTS</h2>
+        </div> -->
+
+    <section class="facts">
+        <h2 class="text-4xl text-white">Facts</h2>
+
+
+<div class="p-4">
+  <div class="flex flex-col md:flex-row items-center">
+    <div class="w-full md:w-1/2">
+      <img src="/images/food waste facts pic2.jpeg" alt="waste fact" class="w-full max-w-300 rounded-lg shadow-md">
+    </div>
+    <div class="w-full md:w-1/2 md:pl-4">
+      <p class="text-white text-center">Nearly a third of all food produced each year is squandered or lost before it can be consumed.
+             In many developed countries, food waste happens in the kitchen — when we prepare foods that go uneaten, or leave food to
+             spoil in fridges and kitchen cabinets.</p>
+    </div>
+  </div>
+</div>
+
+<div class="p-4">
+  <div class="flex flex-col md:flex-row items-center">
+    <div class="w-full md:w-1/2">
+      <p class="text-white text-center">Eliminating global food waste would save 4.4 million tonnes of C02 a year, the equivalent of taking one in four cars off
+                the road.
+                Reducing food waste is the 3rd most effective way to address climate change</p>
+    </div>
+    <div class="w-full md:w-1/2 md:pr-4">
+      <img src="/images/fact-pic1.png" alt="Bild 2" class="w-full max-w-300 rounded-lg shadow-md">
+    </div>
+  </div>
+</div>
+
+
+ <!-- </section>
+
+        
         <div>
             <img src="/images/food waste facts pic2.jpeg" alt="waste fact" width="500" height="350">
           <p>
@@ -46,6 +139,6 @@
             <p> Eliminating global food waste would save 4.4 million tonnes of C02 a year, the equivalent of taking one in four cars off
                 the road.
                 Reducing food waste is the 3rd most effective way to address climate change</p>
-        </div>
+        </div> -->
 
-    </section>
+   
