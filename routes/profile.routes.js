@@ -25,7 +25,8 @@ router.get("/create-profile", isLoggedIn, async (req, res) => {
     console.log(username)
     res.render("profile/create-profile", { username, isLoggedIn: req.isLoggedIn });
   } catch (error) {
-    next(error);
+    console.log(error);
+    res.send("Error");
   }
 });
 
@@ -35,6 +36,7 @@ router.get("user/login", isLoggedIn, (req, res) => {
 });
 
 router.post("/your-recipes", isLoggedIn, async (req, res) => {
+  
    
     try {
       /*const author = new User({
@@ -51,12 +53,14 @@ router.post("/your-recipes", isLoggedIn, async (req, res) => {
  });
 
 router.get('/your-recipes', isLoggedIn, async (req, res) => {
+  const name = req.session.currentUser.username
+  console.log(req.session.currentUser)
     try {
       //const profile = new User({
         //user: req.session.currentUser._id //newly added
       //});
       const recipes = await Recipe.find(); 
-      res.render('profile/new-recipe.hbs', { recipes, isLoggedIn: req.isLoggedIn }); 
+      res.render('profile/new-recipe.hbs', { recipes, isLoggedIn: req.isLoggedIn, username: name }); 
     } catch (err) {
       console.log(err);
       res.status(500).send('Internal Server Error');
