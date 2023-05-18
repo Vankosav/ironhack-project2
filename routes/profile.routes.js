@@ -18,7 +18,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 router.get("/create-profile", isLoggedIn, async (req, res) => {
   try {
     //if (req.session.currentUser && req.session.currentUser._id) {
-      const user = await User.findById();
+      const user = await User.findById(req.session.currentUser._id);
       console.log(user);
       const username = user.username;
       console.log(username);
@@ -114,9 +114,10 @@ router.post("/create-profile", isLoggedIn, async (req, res) => {
     await profile.save();
  console.log("Redirecting to kitchen");
 
-    res.redirect("/profile/kitchen-overview", { isLoggedIn: req.isLoggedIn }); // Redirect to kitchen-state.hbs
+    res.redirect( "/profile/kitchen-overview"); // Redirect to kitchen-state.hbs
   } catch (error) {
-    next(error);
+    console.error(error);
+    res.send("Error");
   }
 });
 
