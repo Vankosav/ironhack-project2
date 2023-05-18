@@ -152,9 +152,13 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           // Remove the password field
           delete req.session.currentUser.password;
          
-           if (req.session.currentUser.profileCreated) {
-            res.redirect("/");
+           if (req.session.currentUser.profile) {
+             console.log(req.session.currentUser);
+            res.redirect("/profile/kitchen-overview");
           } else {
+            console.log(req.session.currentUser.profile);
+            // if user has a profile redirecto /kitchen-overview
+            // if not to create-profile
             res.redirect(`/profile/create-profile?name=${user.username}`);
           }
         })
