@@ -23,22 +23,22 @@ router.get("/create-profile", isLoggedIn, async (req, res) => {
     console.log('trying to push')
     const username = user.username;
     console.log(username)
-    res.render("profile/create-profile", { username });
+    res.render("profile/create-profile", { username, isLoggedIn: req.isLoggedIn });
   } catch (error) {
     next(error);
   }
 });
 
 router.get("user/login", isLoggedIn, (req, res) => {
-  res.render("profile/create-profile");
+  res.render("profile/create-profile", {isLoggedIn: req.isLoggedIn});
 });
 
-router.post("/your-recipes", async (req, res) => {
+router.post("/your-recipes", isLoggedIn, async (req, res) => {
    
     try {
          const newRecipe = await Recipe.create(req.body);
          console.log("Recipe created:", newRecipe);
-         res.redirect("/recipes");
+         res.redirect("/profile/your-recipes", {isLoggedIn: req.isLoggedIn});
        }
        catch (err) {
          console.log("Recipe couldn't be created:", err);
@@ -46,30 +46,44 @@ router.post("/your-recipes", async (req, res) => {
    }
  });
 
-router.get('/your-recipes', async (req, res) => {
+router.get('/your-recipes', isLoggedIn, async (req, res) => {
     try {
       const recipes = await Recipe.find(); 
-      res.render('profile/new-recipe.hbs', { recipes }); 
+      res.render('profile/new-recipe.hbs', { recipes, isLoggedIn: req.isLoggedIn }); 
     } catch (err) {
       console.log(err);
       res.status(500).send('Internal Server Error');
     } 
   });
 
-  router.get("/your-recipes/details/:id", async (req, res) => {
-    try { const recipe = req.params.id;
-     await Recipe.findById(recipe)
-         res.render("profile/recipe-details.hbs", { recipe });
-       } catch (err) {
-         console.log(err);
-         res.status(500).send('Internal Server Error');
-       }
-       });
+router.get("/your-recipes/details/:id", isLoggedIn, async (req, res) => {
+    try {
+      const recipeId = req.params.id;
+      const recipe = await Recipe.findById(recipeId);
+      res.render("profile/recipe-details.hbs", { recipe, isLoggedIn: req.isLoggedIn});
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
 
-router.get("/your-recipes/delete/:id", async (req, res) => {
+  router.post('/your-recipes/edit-recipe/:id', isLoggedIn, async (req, res) => {
+    const recipeId = req.params.id;
+    const updatedRecipe = req.body;
+  
+    try {
+      const updated = await Recipe.findByIdAndUpdate(recipeId, updatedRecipe, { new: true });
+      res.render("profile/edit-recipe.hbs", { updatedRecipe: updated, isLoggedIn: req.isLoggedIn });
+    } catch (err) {
+      console.error('Failed to update recipe:', err);
+      res.status(500).send('Failed to update recipe');
+    }
+  });
+
+router.get("/your-recipes/delete/:id", isLoggedIn, async (req, res) => {
    try { const recipe = req.params.id;
     await Recipe.findByIdAndDelete(recipe)
-        res.render("profile/recipe-deleted.hbs", { recipe });
+        res.render("profile/recipe-deleted.hbs", { recipe, isLoggedIn: req.isLoggedIn });
       } catch (err) {
         console.log(err);
         res.status(500).send('Internal Server Error');
@@ -82,7 +96,7 @@ router.get("/kitchen-overview", isLoggedIn, (req, res) => {
 });
 
 // POST /profile/create-profile
-router.post("/create-profile", async (req, res) => {
+router.post("/create-profile", isLoggedIn, async (req, res) => {
   try {
     const { username, diet, country } = req.body;
 

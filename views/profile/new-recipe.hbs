@@ -3,7 +3,7 @@
  {{#each recipes}}
             <li>{{this.title}}
             <a href="/profile/your-recipes/details/{{this.id}}">Details</a>
-            <a href="/profile/edit-recipe">Edit</a>
+            <a href="/profile/your-recipes/edit-recipe/{{this.id}}">Edit</a>
             <a href="/profile/your-recipes/delete/{{this.id}}">Delete</a>
             </li>
           {{/each}}

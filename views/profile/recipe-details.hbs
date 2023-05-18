@@ -1,14 +1,14 @@
-<h1>recipe{{recipe.title}}</h1>
-<li>{{this.ingredients}}</li>
- <h2>Ingredients</h2>
-        <ul>
-          {{#each recipe}}
-            <li>{{this.ingredients}}</li>
-          {{/each}}
-        </ul>
-        <h2>Instructions</h2>
-        <ol>
-          {{#each recipe}}
-            <li>{{this.instructions}}</li>
-          {{/each}}
-        </ol>
+<h1>{{recipe.title}}</h1>
+<h2>Ingredients</h2>
+<ul>
+  {{#each recipe.ingredients}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>
+<h2>Instructions</h2>
+<ol>
+  {{#each recipe.instructions}}
+    <li>{{this.stepNumber}}. {{this.text}}</li>
+  {{/each}}
+</ol>
+
