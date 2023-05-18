@@ -24,11 +24,11 @@ router.get("/signup", isLoggedOut, (req, res) => {
 
 // POST /auth/signup
 router.post("/signup", isLoggedOut, async (req, res) => {
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
 
 
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (name === "" || email === "" || password === "") {
     res.status(400).render("user/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
@@ -60,7 +60,9 @@ router.post("/signup", isLoggedOut, async (req, res) => {
 
   // Check if the user already exists in the database
   try {
-    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    console.log(req.body)
+    const existingUser = await User.findOne({ $or: [{ name }, { email }] });
+    console.log(existingUser)
     if (existingUser) {
       res.status(400).render("user/signup", {
         errorMessage: "The username & email already exist, please Login.",
@@ -78,7 +80,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword });
+      return User.create({ username: name, email, password: hashedPassword });
     })
     .then((user) => {
       res.redirect("/user/login");
