@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'AtomicMarker';
-  src: url('/fonts/AtomicMarker.otf') format('opentype');
+  src: url('/font/AtomicMarker.otf') format('opentype');
 }
 
 body {
