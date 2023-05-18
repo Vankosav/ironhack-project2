@@ -3,7 +3,7 @@
 {{#if recipeInformation}}
 <h2>{{recipeInformation.title}}</h2>
 <img src="{{recipeInformation.image}}" alt="{{recipeInformation.title}}">
-<p>{{recipeInformation.summary}}</p>
+<p>{{{recipeInformation.summary}}}</p>
 <h3>Instructions:</h3>
 <ol>
     {{#each recipeInformation.analyzedInstructions.[0].steps}}
