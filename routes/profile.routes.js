@@ -20,6 +20,7 @@ router.get("/create-profile", isLoggedIn, async (req, res) => {
    try {
     const user = await User.findById(req.session.currentUser._id);
     console.log(user)
+    console.log('trying to push')
     const username = user.username;
     console.log(username)
     res.render("profile/create-profile", { username, isLoggedIn: req.isLoggedIn });
