@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 async function getRecipeByIngredients(ingredientsArray) {
+  
     console.log('INGREDIENTS: ', ingredientsArray.toString())
   const options = {
     method: "GET",
@@ -22,6 +23,7 @@ async function getRecipeByIngredients(ingredientsArray) {
     return response.data;
   } catch (error) {
     console.error(error);
+    
   }
 }
 
