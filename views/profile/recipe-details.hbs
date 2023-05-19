@@ -1,4 +1,8 @@
-<h1>{{recipe.title}}</h1>
+<div class="form">
+  <div class="flex justify-center">
+<h2 class="text-4xl dark:text-black pb-4">{{recipe.title}}</h2>
+  </div>
+
 <h2>Ingredients</h2>
 <ul>
   {{#each recipe.ingredients}}
@@ -11,4 +15,4 @@
     <li>{{this.stepNumber}}. {{this.text}}</li>
   {{/each}}
 </ol>
-
+</div>

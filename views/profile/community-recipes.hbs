@@ -1,43 +1,60 @@
-<h2>Community Recipes</h2>
+<div class="form">
+  <div class="flex justify-center mb-4">
+<h2 class="text-4xl dark:text-black pb-4">Community Recipes</h2>
+</div>
 
 
-<label for="country">Country:</label>
-<select name="country" id="country">
-  <option value="austria">Austria</option>
-  <option value="belgium">Belgium</option>
-  <option value="germany">Germany</option>
-  <option value="indonesia">Indonesia</option>
-  <option value="serbia">Serbia</option>
-</select>
+<div class="flex">
+  <div class="w-1/4 mb-4 mr-4">
+    <label for="country" class="text-gray-500 dark:text-gray-400">Country:</label>
+    <select name="country" id="country" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+      <option value="austria">Austria</option>
+      <option value="belgium">Belgium</option>
+      <option value="germany">Germany</option>
+      <option value="indonesia">Indonesia</option>
+      <option value="serbia">Serbia</option>
+    </select>
+  </div>
+  
+  <div class="w-1/4 mb-4 mr-4">
+    <label for="cuisine" class="text-gray-500 dark:text-gray-400">Cuisine:</label>
+    <select name="cuisine" id="cuisine" class=" mr-4 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+      <option value="european">European</option>
+      <option value="asian">Asian</option>
+      <option value="southamerican">South American</option>
+      <option value="african">African</option>
+      <option value="northamerican">North American</option>
+      <option value="oceanian">Oceanian</option>
+    </select>
+  </div>
+  
+  <div class="w-1/4 mb-4 mr-4">
+    <label for="diet" class="text-gray-500 dark:text-gray-400">Diet:</label>
+    <select name="diet" id="diet" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+      <option value="vegetarian">Vegetarian</option>
+      <option value="vegan">Vegan</option>
+      <option value="pescatarian">Pescatarian</option>
+      <option value="flexitarian">Flexitarian</option>
+      <option value="omnivore">Omnivore</option>
+    </select>
+  </div>
+  
+  <div class="w-1/4 mb-4 mr-4">
+    <label for="level" class="text-gray-500 dark:text-gray-400">Level:</label>
+    <select id="level" name="level" required class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+      <option value="Easy">Easy</option>
+      <option value="Medium">Medium</option>
+      <option value="Pro">Pro</option>
+    </select>
+  </div>
+</div>
 
-<label for="cuisine">Cuisine:</label>
-<select name="cuisine" id="cuisine">
-  <option value="european">European</option>
-  <option value="asian">Asian</option>
-  <option value="southamerican">South American</option>
-  <option value="african">African</option>
-  <option value="northamerican">North American</option>
-   <option value="oceanian">Oceanian</option>
-</select>
 
-<label for="diet">Diet:</label>
-<select name="diet" id="diet">
-  <option value="vegetarian">Vegetarian</option>
-  <option value="vegan">Vegan</option>
-  <option value="pescatarian">Pescatarian</option>
-  <option value="flexitarian">Flexitarian</option>
-  <option value="omnivore">Omnivore</option>
-</select>
-
-<label for="level">Level:</label>
-<select id="level" name="level" required>
-    <option value="Easy">Easy</option>
-    <option value="Medium">Medium</option>
-    <option value="Pro">Pro</option>
-</select> 
 <br>
 <br>
-    <button>Search for recipes</button>
+    <button class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md">Search for recipes</button>
     <br>
     <br>
-    <button>Create recipe</button>
+    <button class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md">Create recipe</button>
+
+</div>

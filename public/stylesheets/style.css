@@ -51,3 +51,7 @@ footer {
   padding-right: 300px;
   padding-bottom: 50px;
 }
+
+legend {
+  font-family: 'AtomicMarker';
+}
