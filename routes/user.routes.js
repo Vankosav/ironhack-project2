@@ -31,7 +31,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
   if (name === "" || email === "" || password === "") {
     res.status(400).render("user/signup", {
       errorMessage:
-        "All fields are mandatory. Please provide your username, email and password.",
+        "All fields are mandatory. Please provide your name, email and password.",
     });
 
     return;
@@ -65,7 +65,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
     console.log(existingUser)
     if (existingUser) {
       res.status(400).render("user/signup", {
-        errorMessage: "The username & email already exist, please Login.",
+        errorMessage: "The email already exist, please Login.",
       });
       return;
     }
@@ -80,8 +80,9 @@ router.post("/signup", isLoggedOut, async (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username: name, email, password: hashedPassword });
+      return User.create({ name: name, email, password: hashedPassword });
     })
+    
     .then((user) => {
       res.redirect("/user/login");
     })
@@ -91,7 +92,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
       } else if (error.code === 11000) {
         res.status(500).render("user/signup", {
           errorMessage:
-            "Username and email need to be unique. Provide a valid username or email.",
+            "Email needs to be unique. Provide a valid email.",
         });
       } else {
         next(error);
@@ -109,11 +110,11 @@ router.get("/login", isLoggedOut, (req, res) => {
 router.post("/login", isLoggedOut, (req, res, next) => {
   const {email, password } = req.body;
 
-  // Check that username, email, and password are provided
+  // Check that email, and password are provided
   if (email === "" || password === "") {
     res.status(400).render("user/login", {
       errorMessage:
-        "All fields are mandatory. Please provide username, email and password.",
+        "All fields are mandatory. Please provide name, email and password.",
     });
 
     return;

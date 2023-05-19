@@ -6,9 +6,45 @@
   {{/each}}
 </ul>
 <h2>Instructions</h2>
-<ol>
+<ul>
   {{#each recipe.instructions}}
-    <li>{{this.stepNumber}}. {{this.text}}</li>
+    <li>{{this}}</li>
   {{/each}}
-</ol>
+</ul>
 
+<h2>Dish Type</h2>
+<ul>
+  {{recipe.dishType}}
+</ul>
+
+<h2>Diet</h2>
+<ul>
+  {{recipe.diet}}
+</ul>
+
+<h2>Cuisine</h2>
+<ul>
+  {{recipe.cuisine}}
+</ul>
+
+<h2>Duration</h2>
+<ul>
+  {{recipe.duration}}
+</ul>
+
+<h2>Leveln</h2>
+<ul>
+  {{recipe.level}}
+</ul>
+<br>
+<br>
+<br>
+
+<button id="back-to-list">Back to your recipes</button>
+
+<script>
+    const backListButton = document.getElementById("back-to-list");
+    backListButton.addEventListener("click", () => {
+        window.location.href = "/profile/your-recipes";
+    });
+</script>
