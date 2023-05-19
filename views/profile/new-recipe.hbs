@@ -1,15 +1,15 @@
-<h3>Your recipes, {{username}}</h3>
+<h3>Your recipes, {{name}}</h3>
 <!-- if a recipe for each title and next to it button for edit and delete -->
  {{#each recipes}}
             <li>{{this.title}}
             <a href="/profile/your-recipes/details/{{this.id}}">Details</a>
-            <a href="/profile/your-recipes/edit-recipe/{{this.id}}">Edit</a>
+           <a href="/profile/your-recipes/edit-recipe/{{this._id}}">Edit</a>
             <a href="/profile/your-recipes/delete/{{this.id}}">Delete</a>
             </li>
           {{/each}}
-    <br>
-    <br>       
-<button onclick="scrollToSection()">Create recipe</button>
+   <br>
+   <br>
+   <br>
 
 <h3>Create recipe</h3>
 <form action="/profile/your-recipes" method="POST">
@@ -19,64 +19,50 @@
   <br>
   <br>
 
-  <label for="ingredients">Ingredients:</label>
+  <label for="ingredients">Write down the recipe ingredients and quantities:</label>
   <textarea id="ingredients" name="ingredients" required></textarea>
   <br>
   <br>
 
-    <fieldset id="instructions-fieldset">
-    <legend>Instructions:</legend>
-    <div id="instruction-container">
-      <div class="instruction">
-        <label>Step Number:</label>
-        <input type="number" name="stepNumber[]" required>
-        <label>Text:</label>
-        <textarea name="instructionText[]" required></textarea>
-      </div>
-    </div>
-    <button type="button" id="add-instruction-button">Add Step</button>
-  </fieldset>
+  <label for="instructions">Instructions:</label>
+  <textarea id="instructions" name="instructions" required></textarea>
   <br>
   <br>
 
   <label for="dishType">Dish Type:</label>
   <select id="dishType" name="dishType" required>
-    <option value="breakfast">Breakfast</option>
-    <option value="main_course">Main Course</option>
-    <option value="soup">Soup</option>
-    <option value="snack">Snack</option>
-    <option value="drink">Drink</option>
-    <option value="dessert">Dessert</option>
-    <option value="other">Other</option>
+    <option value="Breakfast">Breakfast</option>
+    <option value="Main Course">Main Course</option>
+    <option value="Soup">Soup</option>
+    <option value="Snack">Snack</option>
+    <option value="Drink">Drink</option>
+    <option value="Dessert">Dessert</option>
+    <option value="Other">Other</option>
   </select>
-
-<br>
-  <br>
 
   <label for="diet">Diet:</label>
   <select id="diet" name="diet" required>
-    <option value="vegan">Vegan</option>
-    <option value="vegetarian">Vegetarian</option>
-    <option value="plant-based">Plant-based</option>
-    <option value="gluten-free">Gluten-free</option>
-    <option value="omnivore">Omnivore</option>
+    <option value="Vegan">Vegan</option>
+    <option value="Vegetarian">Vegetarian</option>
+    <option value="Plant based">Plant based</option>
+    <option value="Gluten free">Gluten free</option>
+    <option value="Omnivore">Omnivore</option>
   </select>
 
-<br>
-  <br>
-
   <label for="cuisine">Cuisine:</label>
-  <input type="text" id="cuisine" name="cuisine" required>
-
-<br>
-  <br>
+  <select id="cuisine" name="cuisine" required>
+    <option value="African">African</option>
+    <option value="Asian">Asian</option>
+    <option value="European">European</option>
+    <option value="North American">North American</option>
+    <option value="South American">South American</option>
+    <option value="Oceanian">Oceanian</option>
+  </select>
 
   <label for="duration">Duration (in minutes):</label>
   <input type="number" id="duration" name="duration" required>
 
-<br>
-  <br>
-   <label for="level">Level:</label>
+  <label for="level">Level:</label>
   <select id="level" name="level" required>
     <option value="Easy">Easy</option>
     <option value="Medium">Medium</option>
@@ -87,22 +73,5 @@
 </form>
 
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const addInstructionButton = document.getElementById('add-instruction-button');
-    const instructionContainer = document.getElementById('instruction-container');
 
-    addInstructionButton.addEventListener('click', () => {
-      const newInstruction = document.createElement('div');
-      newInstruction.classList.add('instruction');
-      newInstruction.innerHTML = `
-        <label>Step Number:</label>
-        <input type="number" name="stepNumber[]" required>
-        <label>Text:</label>
-        <textarea name="instructionText[]" required></textarea>
-      `;
-      instructionContainer.appendChild(newInstruction);
-    });
-  });
-</script>
  
