@@ -62,7 +62,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
   try {
     console.log(req.body)
     const existingUser = await User.findOne({ $or: [{ name }, { email }] });
-    console.log(existingUser)
+    console.log("Existing User: " + existingUser)
     if (existingUser) {
       res.status(400).render("user/signup", {
         errorMessage: "The email already exist, please Login.",
@@ -80,7 +80,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ name: name, email, password: hashedPassword });
+      return User.create({ username: name, email, password: hashedPassword });
     })
     
     .then((user) => {
