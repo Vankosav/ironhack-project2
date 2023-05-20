@@ -18,12 +18,12 @@ const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
 
 // GET /auth/signup
-router.get("/signup", isLoggedOut, (req, res) => {
+router.get("/signup", isLoggedOut, (req, res, next) => {
   res.render("user/signup");
 });
 
 // POST /auth/signup
-router.post("/signup", isLoggedOut, async (req, res) => {
+router.post("/signup", isLoggedOut, async (req, res, next) => {
   const { name, email, password } = req.body;
 
 
@@ -61,6 +61,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
   // Check if the user already exists in the database
   try {
     console.log(req.body)
+    const username = req.body.name
     const existingUser = await User.findOne({ $or: [{ name }, { email }] });
     console.log("Existing User: " + existingUser)
     if (existingUser) {
@@ -80,7 +81,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username: name, email, password: hashedPassword });
+      return User.create({ name: name, email, password: hashedPassword });
     })
     
     .then((user) => {
@@ -90,6 +91,7 @@ router.post("/signup", isLoggedOut, async (req, res) => {
       if (error instanceof mongoose.Error.ValidationError) {
         res.status(500).render("user/signup", { errorMessage: error.message });
       } else if (error.code === 11000) {
+        console.log(error.message)
         res.status(500).render("user/signup", {
           errorMessage:
             "Email needs to be unique. Provide a valid email.",
