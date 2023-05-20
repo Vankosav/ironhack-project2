@@ -10,7 +10,7 @@ const saltRounds = 10;
 
 // Require the User model in order to interact with the database
 const User = require("../models/User.model");
-
+const Profile = require("../models/Profile.model")
 const Recipe = require("../models/Recipe.model");
 
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
@@ -61,7 +61,7 @@ router.post("/signup", isLoggedOut, async (req, res, next) => {
   // Check if the user already exists in the database
   try {
     console.log(req.body)
-    const username = req.body.name
+    const name = req.body.name
     const existingUser = await User.findOne({ $or: [{ name }, { email }] });
     console.log("Existing User: " + existingUser)
     if (existingUser) {
@@ -151,21 +151,32 @@ router.post("/login", isLoggedOut, (req, res, next) => {
               .render("user/login", { errorMessage: "Wrong credentials." });
             return;
           }
-
+          console.log('USER: ', user);
           // Add the user object to the session object
           req.session.currentUser = user.toObject();
           // Remove the password field
           delete req.session.currentUser.password;
          
-           if (req.session.currentUser.profile) {
+          // HERE WE NEED TO CHECK FOR A PROFILE RELATED TO THIS USER
+          Profile.findOne({user: user._id})
+          .then((profile)=>{
+            console.log('THIS IS THE PROFILE: ', profile);
+            if(profile){
+              res.redirect("/profile/kitchen-overview");
+
+            }
+            else{
+              res.redirect(`/profile/create-profile?name=${user.name}`);
+            }
+          })
+
+          /*  if (user.profile) {
              console.log(req.session.currentUser);
-            res.redirect("/profile/kitchen-overview");
           } else {
-            console.log(req.session.currentUser.profile);
+            console.log('THIS IS WHAT WE WANT: ',req.session.currentUser.profile);
             // if user has a profile redirecto /kitchen-overview
             // if not to create-profile
-            res.redirect(`/profile/create-profile?name=${user.username}`);
-          }
+          } */
         })
 
         .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
