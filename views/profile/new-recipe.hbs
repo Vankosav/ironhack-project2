@@ -1,3 +1,4 @@
+
 <div class="form">
   <div class="flex justify-center">
 <h2 class="text-4xl dark:text-black pb-4">Your recipes</h2>
@@ -103,6 +104,7 @@
    <label for="level"></label>
   <select id="level" name="level" class="mb-6 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"required>
   <option selected>Level</option>
+
     <option value="Easy">Easy</option>
     <option value="Medium">Medium</option>
     <option value="Pro">Pro</option>
@@ -113,10 +115,7 @@
 </form>
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const addInstructionButton = document.getElementById('add-instruction-button');
-    const instructionContainer = document.getElementById('instruction-container');
+
 
     addInstructionButton.addEventListener('click', () => {
       const newInstruction = document.createElement('div');
@@ -135,4 +134,3 @@
     });
   });
 </script>
- 

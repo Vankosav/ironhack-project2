@@ -1,59 +1,49 @@
 const { Schema, model } = require("mongoose");
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
-const recipeSchema = new Schema(
-  {
-    author: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
-      title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    ingredients: {
-      type: [String],
-      required: true,
-      trim: true,
-    },
-    instructions: [
-        {
-          stepNumber: {
-            type: Number,
-            required: true,
-          },
-          text: {
-            type: String,
-            required: true,
-          },
-        },
-      ],
-    dishType: {
-        type: String,
-        enum: ["breakfast", "main_course", "soup", "snack", "drink", "dessert", "other"]
-    },
-    diet: {
-      type: String,
-      enum: ["vegan", "vegetarian", "plant-based", "gluten-free", "omnivore"],
-      required: true,
-    },
-    cuisine: {
-        type: String,
-        required: true
-      },
-    duration: {
-        type: Number,
-        required: true,
-    },
-    level: {
-      type: String, 
-      enum: ["Easy", "Medium", "Pro"]
-    },
-    // ADD USER ID of the author
+const recipeSchema = new Schema({
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'Profile',
   },
- 
-);
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  ingredients: {
+    type: [String],
+    required: true,
+    trim: true,
+  },
+  instructions: {
+    type: [String],
+    required: true,
+    trim: true,
+  },
+  dishType: {
+    type: String,
+    enum: ["Breakfast", "Main Course", "Soup", "Snack", "Drink", "Dessert", "Other"],
+    required: true,
+  },
+  diet: {
+    type: String,
+    enum: ["Vegan", "Vegetarian", "Plant based", "Gluten free", "Omnivore"],
+    required: true,
+  },
+  cuisine: {
+    type: String,
+    enum: ["African", "Asian", "European", "North American", "South American", "Oceanian"],
+    required: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  level: {
+    type: String,
+    enum: ["Easy", "Medium", "Pro"],
+  },
+});
 
 const Recipe = model("Recipe", recipeSchema);
 

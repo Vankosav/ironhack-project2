@@ -7,6 +7,7 @@ const profileSchema = new Schema({
   },
   username: {
     type: String,
+    unique: true,
     required: true,
   },
   diet: {
