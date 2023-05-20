@@ -1,4 +1,82 @@
-<h2>What do you have in your kitchen now?</h2>
+
+<div class="form">
+    <div class="flex justify-center">
+        <h2 class="text-4xl dark:text-black pb-4">What do you have in your kitchen now?</h2>
+    </div>
+    <form id="recipe-form" action="/profile/kitchen-overview" method="POST">
+        <div id="ingredients-container">
+            <div class="relative z-0 w-full mb-6 group flex">
+                <input type="text" name="ingredient" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="1st ingredient" />
+                <button class="remove-btn underline" type="button">Remove</button>
+            </div>
+        </div>
+
+        <button id="add-ingredient-btn" type="button" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md">Add ingredient</button>
+        <br>
+        <br>
+        <button id="find-recipe-btn" type="submit" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md">Find recipe</button>
+    </form>
+</div>
+
+<script>
+    const addButton = document.getElementById("add-ingredient-btn");
+    const ingredientsContainer = document.getElementById("ingredients-container");
+
+    addButton.addEventListener("click", () => {
+        const newIngredientInput = document.createElement("input");
+        newIngredientInput.type = "text";
+        newIngredientInput.name = "ingredient";
+        newIngredientInput.className = "block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer";
+        newIngredientInput.placeholder = `${ingredientsContainer.children.length + 1}th ingredient`;
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "remove-btn underline";
+        removeButton.type = "button";
+        removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", () => {
+            newIngredientInput.parentNode.remove();
+        });
+
+        const ingredientRow = document.createElement("div");
+        ingredientRow.className = "relative z-0 w-full mb-6 group flex";
+        ingredientRow.appendChild(newIngredientInput);
+        ingredientRow.appendChild(removeButton);
+
+        ingredientsContainer.appendChild(ingredientRow);
+    });
+</script>
+
+<style>
+    .relative {
+        position: relative;
+    }
+
+    .z-0 {
+        z-index: 0;
+    }
+
+    .mb-6 {
+        margin-bottom: 1.5rem;
+    }
+
+    .group {
+        isolation: isolate;
+    }
+
+    .ingredient-row {
+        display: flex;
+    }
+
+    .remove-btn {
+        margin-left: 10px;
+        text-decoration: underline;
+    }
+</style>
+
+
+
+<!--
+<h2 class="text-4xl dark:text-black pb-4">What do you have in your kitchen now?</h2>
 
 <div id="kitchen-form">
     <form id="recipe-form" action="/profile/kitchen-overview" method="POST">
@@ -15,6 +93,7 @@
         <button id="find-recipe-btn" type="submit">Find recipe</button>
     </form>
 </div>
+
 
 <script>
     const addButton = document.getElementById("add-ingredient-btn");
@@ -52,3 +131,5 @@
         margin-left: 10px;
     }
 </style>
+
+-->
