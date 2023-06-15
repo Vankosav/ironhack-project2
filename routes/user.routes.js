@@ -22,7 +22,7 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
   res.render("user/signup");
 });
 
-// POST /auth/signup
+// POST /auth/signup WATCH JUNE 15 CLASS for this
 router.post("/signup", isLoggedOut, async (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -69,6 +69,8 @@ router.post("/signup", isLoggedOut, async (req, res, next) => {
         errorMessage: "The email already exist, please Login.",
       });
       return;
+    } else {
+        res.redirect(`/user/login`);
     }
   } catch (error) {
     next(error);
@@ -81,7 +83,7 @@ router.post("/signup", isLoggedOut, async (req, res, next) => {
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ name: name, email, password: hashedPassword });
+      return User.create({ name, email, password: hashedPassword });
     })
     
     .then((user) => {

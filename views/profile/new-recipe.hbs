@@ -1,138 +1,183 @@
-
 <div class="form">
   <div class="flex justify-center">
-<h2 class="text-4xl dark:text-black pb-4">Your recipes</h2>
-</div>
-<!-- if a recipe for each title and next to it button for edit and delete -->
- {{#each recipes}}
-            <li>{{this.title}}
-            <a href="/profile/your-recipes/details/{{this.id}}" class="underline">Details</a>
-            <a href="/profile/your-recipes/edit-recipe/{{this.id}}" class="underline">Edit</a>
-            <a href="/profile/your-recipes/delete/{{this.id}}" class="underline">Delete</a>
-            </li>
-          {{/each}}
+    <h2 class="text-4xl dark:text-black pb-4">Your recipes</h2>
+  </div>
+  <!-- if a recipe for each title and next to it button for edit and delete -->
+  {{#each recipes}}
+    <li>{{this.title}}
+      <a
+        href="/profile/your-recipes/details/{{this.id}}"
+        class="underline"
+      >Details</a>
+      <a
+        href="/profile/your-recipes/edit-recipe/{{this.id}}"
+        class="underline"
+      >Edit</a>
+      <a
+        href="/profile/your-recipes/delete/{{this.id}}"
+        class="underline"
+      >Delete</a>
+    </li>
+  {{/each}}
+  <br />
+  <br />
+  <!--<button onclick="scrollToSection()" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md" >Create recipe</button> -->
+
+  <div class="flex justify-center">
+    <h2 class="text-4xl dark:text-black pb-4">Create recipe</h2>
+  </div>
+  <br>
     <br>
-    <br>       
-<!--<button onclick="scrollToSection()" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md" >Create recipe</button> -->
+    <br>
+  <form action="/profile/your-recipes" method="POST">
+    <div class="relative z-0 w-full mb-6 group">
+      <input
+        type="text"
+        id="title"
+        name="title"
+        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        placeholder=" "
+        required
+      />
+      <label
+        for="title"
+        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+      >Title</label>
+    </div>
+     <br>
+    <br>
+    <br>
+    <div class="relative z-0 w-full mb-6 group">
+      <textarea
+        id="ingredients"
+        name="ingredients"
+        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        placeholder=" "
+        required
+      ></textarea>
+      <label
+        for="ingredients"
+        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+      >Write down the recipe ingredients and quantities</label>
+    </div>
 
-<div class="flex justify-center">
-<h2 class="text-4xl dark:text-black pb-4">Create recipe</h2>
-</div>
-<form action="/profile/your-recipes" method="POST">
-<div class="relative z-0 w-full mb-6 group">
-<input type="text" id="title" name="title" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required>
-  <label for="title" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Title</label>
-  </div>
-  <br>
-  <br>
-<div class="relative z-0 w-full mb-6 group">
-  <textarea id="ingredients" name="ingredients" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required></textarea>
-  <label for="ingredients" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Ingredients</label>
-</div>
+    <br />
+    <br />
 
-  <br>
-  <br>
+    <div class="relative z-0 w-full mb-6 group">
+      <textarea
+        id="instructions"
+        name="instructions"
+        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        placeholder=" "
+        required
+      ></textarea>
+      <label
+        for="ingredients"
+        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+      >Instructions</label>
+    </div>
+ <br>
+    <br>
+    <br>
+    <div class="relative z-0 w-full mb-6 group">
+      <label for="dishType" class="sr-only"></label>
+      <select
+        id="dishType"
+        name="dishType"
+        class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        required
+      >
+        <option selected>Dish Type</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Main Course">Main Course</option>
+        <option value="Soup">Soup</option>
+        <option value="Snack">Snack</option>
+        <option value="Drink">Drink</option>
+        <option value="Dessert">Dessert</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+ <br>
+    <br>
+    <br>
+    <div class="relative z-0 w-full mb-6 group">
+      <label for="diet"></label>
+      <select
+        id="diet"
+        name="diet"
+        class="mb-6 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        required
+      >
+        <option selected>Diet</option>
+        <option value="Vegan">Vegan</option>
+        <option value="Vegetarian">Vegetarian</option>
+        <option value="Plant based">Plant based</option>
+        <option value="Gluten free">Gluten free</option>
+        <option value="Omnivore">Omnivore</option>
+      </select>
+    </div>
+ <br>
+    <br>
+    <br>
+    <div class="relative z-0 w-full mb-6 group">
+      <label for="cuisine"></label>
+      <select
+        id="cuisine"
+        name="cuisine"
+        class="mb-6 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        required
+      >
+        <option selected>Cuisine</option>
+        <option value="African">African</option>
+        <option value="Asian">Asian</option>
+        <option value="European">European</option>
+        <option value="North American">North American</option>
+        <option value="South American">South American</option>
+        <option value="Oceanian">Oceanian</option>
+      </select>
+    </div>
+ <br>
+    <br>
+    <br>
+    <div class="instruction relative z-0 w-full mb-6 group">
+      <label
+        for="duration"
+        class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+      >Duration (in minutes):</label>
+      <input
+        type="number"
+        id="duration"
+        name="duration"
+        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+        required
+      />
+    </div>
+ <br>
+    <br>
+    <br>
+    <div class="instruction relative z-0 w-full mb-6 group">
+      <label for="level"></label>
+      <select
+        id="level"
+        name="level"
+        class="mb-6 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+        required
+      >
+        <option selected>Level</option>
 
-   <fieldset id="instructions-fieldset" >
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Pro">Pro</option>
+      </select>
+    </div>
+    
     <div class="flex justify-center">
-    <legend class="text-2xl dark:text-black pb-4">Instructions</legend>
+      <input
+        type="submit"
+        value="Create recipe"
+        class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md"
+      />
     </div>
-    <div id="instruction-container">
-     <!-- <div class="instruction relative z-0 w-full mb-6 group">
-        
-        <label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Step Number:</label>
-        <input type="number" name="stepNumber[]" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
-        
-        </div>-->
-        <div class="instruction relative z-0 w-full mb-6 group">
-        <label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Text:</label>
-        <textarea name="instructionText[]" class="mb-6 block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required></textarea>
-      </div>
-    </div>
-    <button type="button" id="add-instruction-button" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md">Add Step</button>
-  </fieldset>
-<!--
-    <fieldset id="instructions-fieldset">
-    <legend class="text-4xl dark:text-black pb-4">Instructions:</legend>
-    <div id="instruction-container">
-      <div class="instruction">
-        <label>Step Number:</label>
-        <input type="number" name="stepNumber[]" required>
-        <label>Text:</label>
-        <textarea name="instructionText[]" required></textarea>
-      </div>
-    </div>
-    <button type="button" id="add-instruction-button">Add Step</button>
-  </fieldset> 
-  -->
-  
-
-  <label for="dishType" class="sr-only"></label>
-  <select id="dishType" name="dishType" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" required>
-    <option selected>Dish type</option>
-    <option value="breakfast">Breakfast</option>
-    <option value="main_course">Main Course</option>
-    <option value="soup">Soup</option>
-    <option value="snack">Snack</option>
-    <option value="drink">Drink</option>
-    <option value="dessert">Dessert</option>
-    <option value="other">Other</option>
-  </select>
-
-
-
-  <label for="diet"></label>
-  <select id="diet" name="diet" class="mb-6 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer" required>
-    <option selected>Diet</option>
-    <option value="vegan">Vegan</option>
-    <option value="vegetarian">Vegetarian</option>
-    <option value="plant-based">Plant-based</option>
-    <option value="gluten-free">Gluten-free</option>
-    <option value="omnivore">Omnivore</option>
-  </select>
-
-
-<div class="relative z-0 w-full mb-6 group">
-  <label for="cuisine" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Cuisine</label>
-  <input type="text" id="cuisine" name="cuisine" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
+  </form>
 </div>
-
-<div class="instruction relative z-0 w-full mb-6 group">
-  <label for="duration" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Duration (in minutes):</label>
-  <input type="number" id="duration" name="duration" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"required>
-  </div>
-
-
-   <label for="level"></label>
-  <select id="level" name="level" class="mb-6 block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"required>
-  <option selected>Level</option>
-
-    <option value="Easy">Easy</option>
-    <option value="Medium">Medium</option>
-    <option value="Pro">Pro</option>
-  </select>
-<div class="flex justify-center">
-  <input type="submit" value="Create recipe" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 shadow-md">
-</div>
-</form>
-</div>
-<!--
-<script>
-
-    addInstructionButton.addEventListener('click', () => {
-      const newInstruction = document.createElement('div');
-      newInstruction.classList.add('instruction', 'relative', 'z-0', 'w-full', 'mb-6', 'group');
-      newInstruction.innerHTML = `
-      <div class="instruction relative z-0 w-full mb-6 group">
-        <input type="number" id="stepNumber" name="stepNumber[]" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required>
-        <label for="stepNumber" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Step Number:</label>
-        </div>
-        <div class="instruction relative z-0 w-full mb-6 group">
-        <textarea id="instructionText" name="instructionText[]" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" required></textarea>
-        <label for="instructionText" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Text:</label>
-      </div>
-      `;
-      instructionContainer.appendChild(newInstruction);
-    });
-  });
-</script> -->
