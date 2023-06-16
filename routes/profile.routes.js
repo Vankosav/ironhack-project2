@@ -35,6 +35,7 @@ router.post("/create-profile", isLoggedIn, async (req, res) => {
   try {
     const { username, diet, country } = req.body;
   
+  
     // Create a new profile with the fixed username
     const profile = new Profile({
       user: req.session.currentUser._id,
@@ -46,18 +47,11 @@ router.post("/create-profile", isLoggedIn, async (req, res) => {
     await profile.save();
  console.log("Redirecting to kitchen");
 console.log(profile);
-res.redirect(`/profile/kitchen-overview?isLoggedIn=${req.isLoggedIn}`);
-
-    //res.redirect( "/profile/kitchen-overview", {isLoggedIn: req.isLoggedIn}, {profile}); // Redirect to kitchen-state.hbs
+res.redirect( "/profile/kitchen-overview", {isLoggedIn: req.isLoggedIn}, {profile}); // Redirect to kitchen-state.hbs
   } catch (error) {
     console.error(error);
     res.send("Error");
   }
-});
-
-//WHY IS THIS HERE????
-router.get("user/login", isLoggedIn, (req, res) => {
-  res.render("profile/create-profile", {isLoggedIn: req.isLoggedIn});
 });
 
 

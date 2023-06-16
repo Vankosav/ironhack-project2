@@ -23,86 +23,45 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 });
 
 // POST /auth/signup WATCH JUNE 15 CLASS for this
-router.post("/signup", isLoggedOut, async (req, res, next) => {
+router.post("/signup", async (req, res, next) => {
   const { name, email, password } = req.body;
 
-
   // Check that username, email, and password are provided
-  if (name === "" || email === "" || password === "") {
-    res.status(400).render("user/signup", {
+  if (!name || !email || !password) {
+    return res.render("user/signup", {
       errorMessage:
-        "All fields are mandatory. Please provide your name, email and password.",
+        "All fields are mandatory. Please provide your name, email, and password.",
     });
-
-    return;
   }
 
   if (password.length < 6) {
-    res.status(400).render("user/signup", {
+    return res.status(400).render("user/signup", {
       errorMessage: "Your password needs to be at least 6 characters long.",
     });
-
-    return;
   }
 
-  //   ! This regular expression checks password for special characters and minimum length
-  /*
-  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-  if (!regex.test(password)) {
-    res
-      .status(400)
-      .render("auth/signup", {
-        errorMessage: "Password needs to have at least 6 chars and must contain at least one number, one lowercase and one uppercase letter."
-    });
-    return;
-  }
-  */
-
-  // Check if the user already exists in the database
   try {
-    console.log(req.body)
-    const name = req.body.name
     const existingUser = await User.findOne({ $or: [{ name }, { email }] });
-    console.log("Existing User: " + existingUser)
     if (existingUser) {
-      res.status(400).render("user/signup", {
-        errorMessage: "The email already exist, please Login.",
+      return res.status(400).render("user/signup", {
+        errorMessage: "The email already exists. Please login.",
       });
-      return;
-    } else {
-        res.redirect(`/user/login`);
     }
+
+    // Create a new user - start by hashing the password
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newUser = await User.create({ name, email, password: hashedPassword });
+
+    // Add the user to the session
+    req.session.currentUser = newUser.toObject();
+
+    // Redirect the user to the profile creation page
+    return res.redirect(`/profile/create-profile?name=${newUser.name}`);
   } catch (error) {
     next(error);
-    return;
   }
+}, isLoggedIn);
 
-  // Create a new user - start by hashing the password
-  bcrypt
-    .genSalt(saltRounds)
-    .then((salt) => bcrypt.hash(password, salt))
-    .then((hashedPassword) => {
-      // Create a user and save it in the database
-      return User.create({ name, email, password: hashedPassword });
-    })
-    
-    .then((user) => {
-      res.redirect("/user/login");
-    })
-    .catch((error) => {
-      if (error instanceof mongoose.Error.ValidationError) {
-        res.status(500).render("user/signup", { errorMessage: error.message });
-      } else if (error.code === 11000) {
-        console.log(error.message)
-        res.status(500).render("user/signup", {
-          errorMessage:
-            "Email needs to be unique. Provide a valid email.",
-        });
-      } else {
-        next(error);
-      }
-    });
-});
 
 // GET /auth/login
 router.get("/login", isLoggedOut, (req, res) => {
@@ -168,7 +127,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
 
             }
             else{
-              res.redirect(`/profile/create-profile?name=${user.name}`);
+              res.redirect(`/profile/create-profile?name=${user.name}`, isLoggedIn );
             }
           })
 
