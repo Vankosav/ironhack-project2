@@ -1,46 +1,75 @@
-<h1>{{recipe.title}}</h1>
-<h2>Ingredients</h2>
+<div class="form">
+<div class="flex justify-center">
+  <h1 class="text-3xl mt-8 text-center">{{recipe.title}}</h1>
+</div>
+
+   
+<h2 class="text-2xl mt-8 text-center">Ingredients</h2>
+
 <ul>
   {{#each recipe.ingredients}}
-    <li>{{this}}</li>
+  <div class="rounded-lg overflow-hidden shadow-lg w-1/3 mb-6">
+  <div class="flex flex-wrap items-center justify-center">
+    <li class="rounded-lg">{{this}} </li >
   {{/each}}
+  </div></div>
 </ul>
-<h2>Instructions</h2>
+<h2 class="text-2xl mt-8 text-center">Instructions</h2>
 <ul>
   {{#each recipe.instructions}}
+   <div class="rounded-lg overflow-hidden shadow-lg w-1/3 mb-6">
+  <div class="flex flex-wrap items-center justify-center">
     <li>{{this}}</li>
   {{/each}}
+   </div></div>
 </ul>
 
-<h2>Dish Type</h2>
+<h2 class="text-2xl mt-8 text-center">Dish Type</h2>
 <ul>
+  <div class="rounded-lg overflow-hidden shadow-lg w-1/3 mb-6">
+  <div class="flex flex-wrap items-center justify-center">
   {{recipe.dishType}}
+  </div></div>
 </ul>
 
-<h2>Diet</h2>
+<h2 class="text-2xl mt-8 text-center">Diet</h2>
 <ul>
+  <div class="rounded-lg overflow-hidden shadow-lg w-1/3 mb-6">
+  <div class="flex flex-wrap items-center justify-center">
   {{recipe.diet}}
+  </div></div>
 </ul>
 
-<h2>Cuisine</h2>
+<h2 class="text-2xl mt-8 text-center">Cuisine</h2>
 <ul>
+  <div class="rounded-lg overflow-hidden shadow-lg w-1/3 mb-6">
+  <div class="flex flex-wrap items-center justify-center">
   {{recipe.cuisine}}
+  </div></div>
 </ul>
 
-<h2>Duration</h2>
+<h2 class="text-2xl mt-8 text-center">Duration</h2>
 <ul>
+  <div class="rounded-lg overflow-hidden shadow-lg w-1/3 mb-6">
+  <div class="flex flex-wrap items-center justify-center">
   {{recipe.duration}}
+  </div></div>
 </ul>
 
-<h2>Leveln</h2>
+<h2 class="text-2xl mt-8 text-center">Level</h2>
 <ul>
+  <div class="rounded-lg overflow-hidden shadow-lg w-1/3 mb-6">
+  <div class="flex flex-wrap items-center justify-center">
   {{recipe.level}}
+  </div></div>
 </ul>
 <br>
 <br>
 <br>
 
-<button id="back-to-list">Back to your recipes</button>
+<button id="back-to-list" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-8 shadow-md">Back to your recipes</button>
+</div></div></div>
+
 
 <script>
     const backListButton = document.getElementById("back-to-list");

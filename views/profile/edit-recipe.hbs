@@ -1,23 +1,25 @@
-<!-- edit-recipe.hbs -->
-<h1>Edit Recipe</h1>
+<div class="form">
+<div class="flex justify-center">
+<h1 class="text-3xl mt-8 text-center">Edit Recipe</h1>
+</div>
 
 <form action="/profile/your-recipes/edit-recipe/{{recipe._id}}" method="POST">
-  <div>
+  <div class="mt-8 text-center">
     <label for="title">Title:</label>
     <input type="text" id="title" name="title" value="{{recipe.title}}" required>
   </div>
 
-  <div>
+  <div class="mt-8 text-center">
     <label for="ingredients">Ingredients:</label>
     <textarea id="ingredients" name="ingredients" required>{{recipe.ingredients}}</textarea>
   </div>
 
-  <div>
+  <div class="mt-8 text-center">
     <label for="instructions">Instructions:</label>
     <textarea id="instructions" name="instructions" required>{{recipe.instructions}}</textarea>
   </div>
 
-<div>
+<div class="mt-8 text-center">
  <label for="dishType">Dish Type:</label>
   <select id="dishType" name="dishType" value="{{recipe.dishType}}" required>
     <option value="Breakfast">Breakfast</option>
@@ -30,7 +32,7 @@
   </select>
   </div>
   
-  <div>
+  <div class="mt-8 text-center">
       <label for="diet">Diet:</label>
   <select id="diet" name="diet" value="{{recipe.diet}}" required>
    <option value="Vegan">Vegan</option>
@@ -41,7 +43,7 @@
   </select>
   </div>
 
-  <div>
+  <div class="mt-8 text-center">
      <label for="cuisine">Cuisine:</label>
   <select id="cuisine" name="cuisine" value="{{recipe.cuisine}}" required>
     <option value="African">African</option>
@@ -53,12 +55,12 @@
   </select>
   </div>
 
-  <div>
+  <div class="mt-8 text-center">
      <label for="duration">Duration (in minutes):</label>
   <input type="number" id="duration" name="duration" value="{{recipe.duration}}" required>
   </div>
 
-  <div>
+  <div class="mt-8 text-center">
     <label for="level">Level:</label>
   <select id="level" name="level" value="{{recipe.level}}" required>
      <option value="Easy">Easy</option>
@@ -67,7 +69,8 @@
   </select>
   </div>
 
-  <div>
-    <button type="submit">Update Recipe</button>
+  <div id="back-to-list" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center mt-8 shadow-md">
+    <button  type="submit">Update Recipe</button>
   </div>
 </form>
+</div>
