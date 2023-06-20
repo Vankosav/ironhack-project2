@@ -9,6 +9,8 @@ require("./db");
 // https://www.npmjs.com/package/express
 const express = require("express");
 
+
+
 // Handles the handlebars
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
@@ -22,6 +24,9 @@ const capitalize = require("./utils/capitalize");
 const projectName = "project2";
 
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
+
+const myMiddleware = require("./middleware/isLoggedIn");
+app.use(myMiddleware);
 
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");

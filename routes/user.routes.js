@@ -56,11 +56,11 @@ router.post("/signup", async (req, res, next) => {
     req.session.currentUser = newUser.toObject();
 
     // Redirect the user to the profile creation page
-    return res.redirect(`/profile/create-profile?name=${newUser.name}`);
+    return res.redirect(`/profile/create-profile?isLoggedIn=true&name=${newUser.name}`);
   } catch (error) {
     next(error);
   }
-}, isLoggedIn);
+});
 
 
 // GET /auth/login
@@ -118,29 +118,33 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           // Remove the password field
           delete req.session.currentUser.password;
          
+      
           // HERE WE NEED TO CHECK FOR A PROFILE RELATED TO THIS USER
           Profile.findOne({user: user._id})
           .then((profile)=>{
             console.log('THIS IS THE PROFILE: ', profile);
             if(profile){
-              res.redirect("/profile/kitchen-overview");
+              const newProfile = 
+              Profile.create({ username, diet, country })
+  .then((newProfile) => {
+    req.session.currentProfile = newProfile.toObject();
+    res.redirect("/profile/kitchen-overview");
+  })
+  .catch((err) => next(err));
+
+              // Add the user to the session
+              req.session.currentProfile = newProfile.toObject();
+              res.redirect(`/profile/kitchen-overview?isLoggedIn=${req.isLoggedIn}&username=${user.name}`);
+
 
             }
             else{
-              res.redirect(`/profile/create-profile?name=${user.name}`, isLoggedIn );
+              res.redirect(`/profile/create-profile?isLoggedIn=${req.isLoggedIn}&username=${user.name}`);
             }
           })
-
-          /*  if (user.profile) {
-             console.log(req.session.currentUser);
-          } else {
-            console.log('THIS IS WHAT WE WANT: ',req.session.currentUser.profile);
-            // if user has a profile redirecto /kitchen-overview
-            // if not to create-profile
-          } */
         })
 
-        .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
+        .catch((err) => next(err)); 
     })
     .catch((err) => next(err));
 });

@@ -1,10 +1,15 @@
 module.exports = (req, res, next) => {
-  // checks if the user is logged in when trying to access a specific page
-  if (!req.session.currentUser && !req.session.currentProfile) {
-    // return res.redirect("/user/login");
-    req.isLoggedIn = false;
+  // Exclude login and signup routes from redirection
+  if (req.path === '/user/login' || req.path === '/user/signup') {
+    return next();
   }
-  else req.isLoggedIn = true;
+
+  // Check if the user is logged in when trying to access other pages
+  if (!req.session.currentUser && !req.session.currentProfile) {
+    return res.redirect("/user/login");
+  } else {
+    req.isLoggedIn = true;
+  }
 
   next();
 };
