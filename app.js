@@ -25,7 +25,7 @@ const projectName = "project2";
 
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
-const myMiddleware = require("./middleware/isLoggedIn");
+const myMiddleware = require("./middleware/isLoggedIn" || "./middleware/isLoggedOut");
 app.use(myMiddleware);
 
 // 👇 Start handling routes here

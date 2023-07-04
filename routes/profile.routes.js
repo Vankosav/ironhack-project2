@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const User = require("../models/User.model");
 const Profile = require("../models/Profile.model");
+const mongoose = require("mongoose");
 
 
 // we need to require our getRecipeByIngredients function here
@@ -75,12 +76,12 @@ res.redirect( "/profile/kitchen-overview", {isLoggedIn: req.isLoggedIn}, {newPro
 });
 
  router.post("/your-recipes", isLoggedIn, async (req, res) => {
-  const name = req.session.currentUser.name;
+  const username = req.session.currentProfile.username;
   try {
     
     const newRecipe = await Recipe.create(req.body); 
-    console.log("Recipe created:", newRecipe, name);
-    res.redirect(`/profile/your-recipes?isLoggedIn=true&name=${name}`);
+    console.log("Recipe created:", newRecipe, username);
+    res.redirect(`/profile/your-recipes?isLoggedIn=true&name=${username}`);
   } catch (err) {
     console.log("Recipe couldn't be created:", err);
     res.send("Error");
@@ -208,23 +209,13 @@ router.get("/kitchen-recipes", isLoggedIn, async (req, res) => {
   }
 });
 
-router.get("/community-recipes", isLoggedIn, async (req, res) => {
-  const username = req.session.currentProfile.username;
-  try {
-    const recipes = await Recipe.find(); 
-    console.log(username);
-    res.render("profile/community-recipes.hbs", { recipes, isLoggedIn: req.isLoggedIn, username });
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Internal Server Error');
-  } 
-});
+
   
 
 router.get("/logout", isLoggedIn, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      res.status(500).render("user/logout", { errorMessage: err.message, isLoggedIn: req.isLoggedIn });
+      res.status(500).render("profile/logout", { errorMessage: err.message, isLoggedIn: req.isLoggedIn });
       return;
     }
 

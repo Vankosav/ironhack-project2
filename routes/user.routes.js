@@ -1,21 +1,16 @@
 const express = require("express");
 const router = express.Router();
-
-// ℹ️ Handles password encryption
 const bcrypt = require("bcrypt");
-const mongoose = require("mongoose");
-
-// How many rounds should bcrypt run the salt (default - 10 rounds)
 const saltRounds = 10;
-
-// Require the User model in order to interact with the database
 const User = require("../models/User.model");
 const Profile = require("../models/Profile.model")
-const Recipe = require("../models/Recipe.model");
 
-// Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedOut = require("../middleware/isLoggedOut");
 const isLoggedIn = require("../middleware/isLoggedIn");
+const mongoose = require("mongoose");
+
+
+
 
 // GET /auth/signup
 router.get("/signup", isLoggedOut, (req, res, next) => {
@@ -23,15 +18,17 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 });
 
 // POST /auth/signup WATCH JUNE 15 CLASS for this
-router.post("/signup", async (req, res, next) => {
+router.post("/signup", isLoggedOut, async (req, res, next) => {
   const { name, email, password } = req.body;
 
   // Check that username, email, and password are provided
   if (!name || !email || !password) {
-    return res.render("user/signup", {
+    res.status(400).render("user/signup", {
       errorMessage:
-        "All fields are mandatory. Please provide your name, email, and password.",
+        "All fields are mandatory. Please provide your name, email and password.",
     });
+
+    return;
   }
 
   if (password.length < 6) {
@@ -42,25 +39,44 @@ router.post("/signup", async (req, res, next) => {
 
   try {
     const existingUser = await User.findOne({ $or: [{ name }, { email }] });
+    
     if (existingUser) {
-      return res.status(400).render("user/signup", {
-        errorMessage: "The email already exists. Please login.",
+      res.status(400).render("user/signup", {
+        errorMessage: "The user already exists, please Login.",
       });
+      return;
     }
-
-    // Create a new user - start by hashing the password
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const newUser = await User.create({ name, email, password: hashedPassword });
-
-    // Add the user to the session
-    req.session.currentUser = newUser.toObject();
-
-    // Redirect the user to the profile creation page
-    return res.redirect(`/profile/create-profile?isLoggedIn=true&name=${newUser.name}`);
   } catch (error) {
     next(error);
+    return;
   }
+
+  bcrypt
+    .genSalt(saltRounds)
+    .then((salt) => bcrypt.hash(password, salt))
+    .then((hashedPassword) => {
+      // Create a user and save it in the database
+      return User.create({ name, email, password: hashedPassword });
+    })
+    .then((user) => {
+      req.session.currentUser = user.toObject();
+      res.redirect("/profile/create-profile");
+    })
+    .catch((error) => {
+      if (error instanceof mongoose.Error.ValidationError) {
+        res.status(500).render("user/signup", { errorMessage: error.message });
+      } else if (error.code === 11000) {
+        console.log(error.message)
+        res.status(500).render("user/signup", {
+          errorMessage:
+            "Email needs to be unique. Provide a valid email.",
+        });
+      } else {
+        next(error);
+      }
+    });
 });
+
 
 
 // GET /auth/login
@@ -119,46 +135,24 @@ router.post("/login", isLoggedOut, (req, res, next) => {
           delete req.session.currentUser.password;
          
       
-          // HERE WE NEED TO CHECK FOR A PROFILE RELATED TO THIS USER
-          Profile.findOne({user: user._id})
-          .then((profile)=>{
-            console.log('THIS IS THE PROFILE: ', profile);
-            if(profile){
-              const newProfile = 
-              Profile.create({ username, diet, country })
-  .then((newProfile) => {
-    req.session.currentProfile = newProfile.toObject();
-    res.redirect("/profile/kitchen-overview");
-  })
-  .catch((err) => next(err));
+          if (req.session.currentUser.profile) {
+            console.log(req.session.currentUser);
+           res.redirect("/profile/kitchen-overview");
+         } else {
+           console.log(req.session.currentUser.profile);
+           // if user has a profile redirecto /kitchen-overview
+           // if not to create-profile
+           res.redirect(`/profile/create-profile?name=${user.name}`);
+         }
+       })
 
-              // Add the user to the session
-              req.session.currentProfile = newProfile.toObject();
-              res.redirect(`/profile/kitchen-overview?isLoggedIn=${req.isLoggedIn}&username=${user.name}`);
-
-
-            }
-            else{
-              res.redirect(`/profile/create-profile?isLoggedIn=${req.isLoggedIn}&username=${user.name}`);
-            }
-          })
-        })
-
-        .catch((err) => next(err)); 
-    })
-    .catch((err) => next(err));
+       .catch((err) => next(err)); // In this case, we send error handling to the error handling middleware.
+   })
+   .catch((err) => next(err));
 });
 
-// GET /auth/logout
-router.get("/logout", isLoggedIn, (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      res.status(500).render("user/logout", { errorMessage: err.message, isLoggedIn: req.isLoggedIn });
-      return;
-    }
 
-    res.redirect("/");
-  });
-});
+
+
 
 module.exports = router;
